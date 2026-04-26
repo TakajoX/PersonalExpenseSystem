@@ -12,7 +12,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./db_init:/docker-entrypoint-initdb.d
+    networks:
+      - expense_network
 
 volumes:
   postgres_data:
+
+networks:
+  expense_network:
+    external: true

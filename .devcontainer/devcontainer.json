@@ -3,11 +3,13 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    // AGGIUNTO: Abilita Docker all'interno del Dev Container
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
-    // Configura le impostazioni specifiche di VS Code nel container
+    "initializeCommand": "docker network create expense_network || true",
+    "runArgs": [
+        "--network=expense_network"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -23,8 +25,6 @@
             }
         }
     },
-    // Usa 'postCreateCommand' per installare le librerie all'avvio
     "postCreateCommand": "pip install -r requirements.txt",
-    // Fa girare il container come utente non-root per sicurezza
     "remoteUser": "vscode"
 }

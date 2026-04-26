@@ -2,7 +2,6 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 
-# Carica le variabili d'ambiente dal file .env
 load_dotenv()
 
 
@@ -21,13 +20,35 @@ def get_db_connection():
         return None
 
 
-def main_menu():
-    # Testiamo la connessione all'avvio
+def init_database():
+    """Legge il file database.sql e inizializza le tabelle."""
     conn = get_db_connection()
-    if conn:
-        print("Connessione al database stabilita con successo!")
+    if not conn:
+        return False
+
+    try:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sql_file_path = os.path.join(base_dir, 'sql', 'database.sql')
+
+        with open(sql_file_path, 'r') as file:
+            sql_script = file.read()
+
+        with conn.cursor() as cursor:
+            cursor.execute(sql_script)
+            conn.commit()
+            print("Tabelle e dati di base inizializzati con successo!")
+        return True
+    except Exception as e:
+        print(f"Errore durante l'inizializzazione del database: {e}")
+        return False
+    finally:
         conn.close()
-    else:
+
+
+def main_menu():
+    print("Avvio del sistema in corso...")
+
+    if not init_database():
         print("Impossibile avviare il sistema. Controllare il database.")
         return
 
