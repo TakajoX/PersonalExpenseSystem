@@ -1,29 +1,13 @@
 import os
-import psycopg2
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
-def get_db_connection():
-    try:
-        return psycopg2.connect(
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME")
-        )
-    except Exception as e:
-        print(f"Errore: {e}")
-        return None
+from database import get_db_connection
 
 
 def init_database():
-    print("Inizializzazione del database in corso...")
+    print("Inizializzazione del database in corso...[cite: 1]")
     conn = get_db_connection()
+
     if not conn:
-        print("❌ Impossibile connettersi al DB.")
+        print("  Impossibile connettersi al DB.[cite: 1]")
         return
 
     try:
@@ -36,9 +20,11 @@ def init_database():
         with conn.cursor() as cursor:
             cursor.execute(sql_script)
             conn.commit()
-            print("✅ Tabelle e dati di base inizializzati con successo!")
+            print(
+                "  Tabelle e dati di base inizializzati con successo![cite: 1]")
+
     except Exception as e:
-        print(f"❌ Errore durante l'inizializzazione: {e}")
+        print(f"  Errore durante l'inizializzazione: {e}[cite: 1]")
     finally:
         conn.close()
 
