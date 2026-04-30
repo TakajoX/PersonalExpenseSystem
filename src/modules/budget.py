@@ -4,11 +4,24 @@ from db.database import ottieni_id_categoria
 def modulo_definisci_budget(conn):
     print("\n--- DEFINISCI BUDGET MENSILE ---")
     mese = input("Mese (formato YYYY-MM): ").strip()
-
     if len(mese) != 7 or mese[4] != '-':
         print("Errore: Formato mese non valido. Usa YYYY-MM.")
         return
 
+    # Recupero e stampa delle categorie disponibili
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT nome FROM categorie ORDER BY nome")
+        categorie = cursor.fetchall()
+
+        if not categorie:
+            print("\nAttenzione: Nessuna categoria presente nel database. Vai prima in 'Gestione Categorie' per crearne una.")
+            return
+
+        # Creiamo una stringa con tutti i nomi separati da virgola
+        nomi_categorie = [row[0] for row in categorie]
+        print(f"\nCategorie disponibili: {', '.join(nomi_categorie)}")
+
+    # Richiesta della categoria all'utente
     nome_categoria = input("Nome della categoria: ").strip()
     categoria_id = ottieni_id_categoria(conn, nome_categoria)
 
