@@ -22,7 +22,6 @@ def modulo_visualizza_report(conn):
 
             elif scelta == '2':
                 print("\n--- SPESE VS BUDGET ---")
-                # Query avanzata per combinare Budget e Spese
                 cursor.execute("""
                     SELECT b.mese, c.nome, b.importo as budget,
                            COALESCE(SUM(s.importo), 0) as speso

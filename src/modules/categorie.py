@@ -9,7 +9,6 @@ def modulo_gestione_categorie(conn):
         scelta = input("Scegli un'opzione: ").strip()
 
         if scelta == '1':
-            # VISUALIZZAZIONE
             with conn.cursor() as cursor:
                 cursor.execute("SELECT nome FROM categorie ORDER BY nome")
                 categorie = cursor.fetchall()
@@ -22,7 +21,6 @@ def modulo_gestione_categorie(conn):
                         print(f"{i:<2} | {row[0]}")
 
         elif scelta == '2':
-            # INSERIMENTO
             nome = input("\nInserisci il nome della nuova categoria: ").strip()
             if not nome:
                 print("Errore: Il nome della categoria non può essere vuoto.")
@@ -45,7 +43,6 @@ def modulo_gestione_categorie(conn):
                     print(f"Errore durante l'inserimento: {e}")
 
         elif scelta == '3':
-            # ELIMINAZIONE
             nome = input(
                 "\nInserisci il nome della categoria da eliminare: ").strip()
             if not nome:
@@ -64,7 +61,6 @@ def modulo_gestione_categorie(conn):
                 categoria_id = risultato[0]
                 nome_reale = risultato[1]
 
-                # 2. Tentiamo l'eliminazione
                 try:
                     cursor.execute(
                         "DELETE FROM categorie WHERE id = %s", (categoria_id,))
@@ -77,7 +73,6 @@ def modulo_gestione_categorie(conn):
                     print(f"Dettaglio tecnico: {e}")
 
         elif scelta == '4':
-            # USCITA DAL SOTTOMENU
             break
 
         else:
