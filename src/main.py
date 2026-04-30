@@ -1,8 +1,8 @@
-from database import get_db_connection
-from categorie import modulo_gestione_categorie
-from spese import modulo_inserisci_spesa
-from budget import modulo_definisci_budget
-from report import modulo_visualizza_report
+from db.database import get_db_connection
+from modules.categorie import modulo_gestione_categorie
+from modules.spese import modulo_inserisci_spesa
+from modules.budget import modulo_definisci_budget
+from modules.report import modulo_visualizza_report
 
 
 def main_menu():

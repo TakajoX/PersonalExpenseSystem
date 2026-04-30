@@ -1,5 +1,5 @@
 from datetime import datetime
-from database import ottieni_id_categoria
+from db.database import ottieni_id_categoria
 
 
 def modulo_inserisci_spesa(conn):

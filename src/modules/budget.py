@@ -1,4 +1,4 @@
-from database import ottieni_id_categoria
+from db.database import ottieni_id_categoria
 
 
 def modulo_definisci_budget(conn):
