@@ -6,23 +6,23 @@ from modules.report import modulo_visualizza_report
 
 
 def main_menu():
-    print("Avvio del sistema in corso...[cite: 1]")
+    print("Avvio del sistema in corso...")
     conn = get_db_connection()
 
     if not conn:
         print(
-            "Impossibile avviare il sistema. Verifica che il database (o Docker) sia attivo.[cite: 1]")
+            "Impossibile avviare il sistema. Verifica che il database (o Docker) sia attivo.")
         return
 
     while True:
         print("\n-------------------------")
         print(" SISTEMA SPESE PERSONALI")
         print("-------------------------")
-        print("1. Gestione Categorie[cite: 1]")
-        print("2. Inserisci Spesa[cite: 1]")
-        print("3. Definisci Budget Mensile[cite: 1]")
-        print("4. Visualizza Report[cite: 1]")
-        print("5. Esci[cite: 1]")
+        print("1. Gestione Categorie")
+        print("2. Inserisci Spesa")
+        print("3. Definisci Budget Mensile")
+        print("4. Visualizza Report")
+        print("5. Esci")
         print("-------------------------")
 
         scelta = input("Inserisci la tua scelta: ").strip()
@@ -36,10 +36,10 @@ def main_menu():
         elif scelta == '4':
             modulo_visualizza_report(conn)
         elif scelta == '5':
-            print("Uscita dal programma. Arrivederci![cite: 1]")
+            print("Uscita dal programma. Arrivederci!")
             break
         else:
-            print("Scelta non valida. Riprovare.[cite: 1]")
+            print("Scelta non valida. Riprovare.")
 
     conn.close()
 

@@ -3,32 +3,32 @@ from db.database import ottieni_id_categoria
 
 
 def modulo_inserisci_spesa(conn):
-    print("\n--- INSERISCI SPESA ---[cite: 1]")
+    print("\n--- INSERISCI SPESA ---")
     data_str = input("Data (formato YYYY-MM-DD): ").strip()
 
-    # Validazione data[cite: 1]
+    # Validazione data
     try:
         datetime.strptime(data_str, "%Y-%m-%d")
     except ValueError:
-        print("Errore: Formato data non valido. Usa YYYY-MM-DD.[cite: 1]")
+        print("Errore: Formato data non valido. Usa YYYY-MM-DD.")
         return
 
-    # Validazione importo[cite: 1]
+    # Validazione importo
     try:
         importo = float(input("Importo: "))
         if importo <= 0:
-            print("Errore: l'importo deve essere maggiore di zero.[cite: 1]")
+            print("Errore: l'importo deve essere maggiore di zero.")
             return
     except ValueError:
-        print("Errore: Inserisci un numero valido per l'importo.[cite: 1]")
+        print("Errore: Inserisci un numero valido per l'importo.")
         return
 
-    # Validazione categoria[cite: 1]
+    # Validazione categori
     nome_categoria = input("Nome della categoria: ").strip()
     categoria_id = ottieni_id_categoria(conn, nome_categoria)
 
     if not categoria_id:
-        print("Errore: la categoria non esiste.[cite: 1]")
+        print("Errore: la categoria non esiste.")
         return
 
     descrizione = input("Descrizione (facoltativa): ").strip()
@@ -40,7 +40,7 @@ def modulo_inserisci_spesa(conn):
                 (data_str, importo, categoria_id, descrizione)
             )
             conn.commit()
-            print("Spesa inserita correttamente.[cite: 1]")
+            print("Spesa inserita correttamente.")
         except Exception as e:
             conn.rollback()
-            print(f"Errore durante l'inserimento: {e}[cite: 1]")
+            print(f"Errore durante l'inserimento: {e}")

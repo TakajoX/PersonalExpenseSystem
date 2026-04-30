@@ -1,16 +1,16 @@
 def modulo_visualizza_report(conn):
     while True:
         print("\n--- MENU REPORT ---")
-        print("1. Totale spese per categoria[cite: 1]")
-        print("2. Spese mensili vs budget[cite: 1]")
-        print("3. Elenco completo delle spese ordinate per data[cite: 1]")
-        print("4. Ritorna al menu principale[cite: 1]")
+        print("1. Totale spese per categoria")
+        print("2. Spese mensili vs budget")
+        print("3. Elenco completo delle spese ordinate per data")
+        print("4. Ritorna al menu principale")
 
         scelta = input("Scegli un report: ").strip()
 
         with conn.cursor() as cursor:
             if scelta == '1':
-                print("\nCategoria........Totale Speso[cite: 1]")
+                print("\nCategoria........Totale Speso")
                 cursor.execute("""
                     SELECT c.nome, SUM(s.importo) 
                     FROM spese s 
@@ -21,8 +21,8 @@ def modulo_visualizza_report(conn):
                     print(f"{row[0]:<17}{row[1]:.2f}")
 
             elif scelta == '2':
-                print("\n--- SPESE VS BUDGET ---[cite: 1]")
-                # Query avanzata per combinare Budget e Spese[cite: 1]
+                print("\n--- SPESE VS BUDGET ---")
+                # Query avanzata per combinare Budget e Spese
                 cursor.execute("""
                     SELECT b.mese, c.nome, b.importo as budget,
                            COALESCE(SUM(s.importo), 0) as speso
@@ -40,7 +40,7 @@ def modulo_visualizza_report(conn):
 
             elif scelta == '3':
                 print(
-                    "\nData        Categoria         Importo   Descrizione[cite: 1]")
+                    "\nData        Categoria         Importo   Descrizione")
                 print("-" * 60)
                 cursor.execute("""
                     SELECT s.data, c.nome, s.importo, s.descrizione 
@@ -56,4 +56,4 @@ def modulo_visualizza_report(conn):
             elif scelta == '4':
                 break
             else:
-                print("Scelta non valida.[cite: 1]")
+                print("Scelta non valida.")
