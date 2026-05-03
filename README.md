@@ -1,83 +1,72 @@
-💰 Personal Expense System
+Personal Expense System
 
-Un sistema intuitivo a riga di comando (CLI) progettato per la gestione delle spese personali, la definizione di budget mensili e la generazione di report dettagliati.
+Un sistema a riga di comando per la gestione delle spese personali, la definizione di budget mensili e la visualizzazione di report dettagliati.
 
-🛠️ Stack Tecnologico
+Requisiti per l'esecuzione
 
-Il progetto è costruito utilizzando strumenti moderni per garantire un ambiente di sviluppo isolato e riproducibile:
+Per eseguire correttamente questo progetto, è necessario avere installato il seguente software sulla propria macchina locale:
 
-Linguaggio: Python 3.8+
+Docker e Docker Compose: Necessari per avviare il container del database PostgreSQL.
 
-Database: PostgreSQL
+Supporto Devcontainer: Un IDE compatibile con gli ambienti basati su container (es. utilizzando l'estensione "Dev Containers" su Visual Studio Code).
 
-Containerizzazione: Docker & Docker Compose
+Nota bene: I seguenti strumenti sono già disponibili e preconfigurati all'interno del Devcontainer, pertanto non è necessario installarli manualmente sul proprio computer:
 
-Ambiente di Sviluppo: Devcontainers (VS Code)
+Make: Strumento necessario per lanciare i comandi automatizzati presenti nel Makefile.
 
-Automazione: GNU Make
+Interprete Python: Versione 3.8 o superiore (ambiente e dipendenze pronti all'uso).
 
-📋 Requisiti di Sistema
+Librerie e Dipendenze
 
-Per eseguire il progetto, assicurati di avere installato:
+Il progetto utilizza le seguenti librerie:
 
-Docker & Docker Compose: Per la gestione del database.
-
-Supporto Devcontainer: Un IDE compatibile (consigliato: Visual Studio Code con estensione "Dev Containers").
-
-[!NOTE]
-All'interno del Devcontainer, strumenti come Make e l'interprete Python sono già preconfigurati e pronti all'uso.
-
-📦 Librerie e Dipendenze
-
-Il sistema si appoggia alle seguenti risorse:
-
-Standard Library: os, datetime.
+Librerie Standard Python: os, datetime.
 
 Librerie Esterne:
 
-psycopg2-binary: Interazione con PostgreSQL.
+psycopg2-binary: Per la connessione e l'interazione con il database PostgreSQL.
 
-python-dotenv: Gestione delle variabili d'ambiente.
+python-dotenv: Per il caricamento delle variabili d'ambiente dal file di configurazione.
 
-⚠️ Configurazione Iniziale (.env)
+Configurazione Iniziale
 
-Prima di avviare il sistema, è obbligatorio creare un file di configurazione:
+ATTENZIONE: Chiunque cloni o scarichi questo progetto deve creare manualmente un file .env nella cartella principale (root) del progetto.
+Le informazioni specifiche, le credenziali e le variabili d'ambiente da inserire all'interno di questo file si trovano all'interno del file PDF fornito insieme alla documentazione del progetto.
 
-Crea un file chiamato .env nella cartella root del progetto.
+Senza il file .env correttamente configurato, il sistema non sarà in grado di comunicare con il database.
 
-Inserisci le credenziali e le variabili d'ambiente fornite nel file PDF della documentazione.
+Istruzioni dettagliate per eseguire il programma
 
-Senza questo file, il sistema non potrà connettersi al database.
+Segui questi passaggi nell'ordine esatto per configurare e avviare il programma:
 
-🚀 Istruzioni per l'Esecuzione
+1. Avvio dell'ambiente Devcontainer
 
-Segui questi passaggi nell'ordine indicato per configurare e avviare l'applicazione:
+Apri il progetto in un IDE supportato (come Visual Studio Code) e avvia il Devcontainer. Questo garantirà che l'ambiente Python e tutti gli strumenti di compilazione siano isolati e pronti all'uso.
 
-1. Avvio dell'Ambiente
+2. Avvio del Database (Docker Compose)
 
-Apri la cartella del progetto con il tuo IDE e avvia il Devcontainer. Questo isolerà l'ambiente e caricherà tutte le dipendenze necessarie.
-
-2. Accensione del Database
-
-Apri il terminale all'interno del container ed esegui il comando per avviare PostgreSQL in background:
+Una volta all'interno dell'ambiente, è necessario avviare il container del database PostgreSQL. Esegui il seguente comando nel terminale:
 
 docker-compose up -d
 
 
-3. Inizializzazione (Migrazione)
+Questo comando scaricherà l'immagine di PostgreSQL e avvierà il database in background.
 
-Per creare le tabelle e caricare i dati iniziali nel database, utilizza il comando Make dedicato:
+3. Migrazione e Inizializzazione del Database
+
+Prima di poter utilizzare l'applicazione, bisogna creare le tabelle e inserire i dati di base. Puoi farlo automaticamente grazie al Makefile incluso.
+Esegui questo comando esatto:
 
 make init-db
 
 
-4. Avvio dell'Applicazione
+Questo comando eseguirà lo script SQL all'interno del container Docker appena creato, predisponendo il database per l'utilizzo.
 
-Una volta che il database è pronto, lancia il programma principale con:
+4. Avvio del Programma
+
+Una volta che il database è configurato e in esecuzione, puoi avviare l'interfaccia a riga di comando del programma eseguendo:
 
 make run
 
 
-Questo comando avvierà l'interfaccia CLI e ti permetterà di navigare nel menu principale.
-
-Sviluppato per la gestione intelligente delle tue finanze.
+Questo comando invocherà l'interprete Python sul file src/main.py, permettendoti di accedere al menu principale del sistema.
